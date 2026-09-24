@@ -1,10 +1,10 @@
 {
     "Config": {
-      "AppName": "TemplateProject",
+      "AppName": "PySysMonitor",
       "Description": "",
       "ProjectStructure": {
         "MainScript": "main.py",
-        "DependenciesScript": "scripts/install-dependencies.py"
+        "DependenciesScript": "scripts/install_dependencies.py"
       },
       "Scripts": {
 

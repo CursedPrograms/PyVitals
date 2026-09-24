@@ -1,9 +1,12 @@
 import os
 import subprocess
+import sys
 import json
 
 def main():
-    with open('config.json') as json_file:
+    current_script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    with open(os.path.join(current_script_dir, 'config.json')) as json_file:
         config_data = json.load(json_file)
 
     # Get the project name from the JSON data
@@ -14,14 +17,14 @@ def main():
 
     scripts = {
         "1": {
-            "name": "Run 'Script00'",
-            "description": "This is Script01",
-            "file_name": "scripts/script00.py"
+            "name": "Run 'vitals.py'",
+            "description": "Console system monitor",
+            "file_name": "vitals.py"
         },
         "2": {
-            "name": "Run 'Script01",
-            "description": "This is Script01",
-            "file_name": "scripts/script01.py"
+            "name": "Run 'vitals-tkinter.py'",
+            "description": "Tkinter GUI system monitor",
+            "file_name": "vitals-tkinter.py"
         },
         "00": {
             "name": "Run 'install_dependencies.py'",
@@ -30,14 +33,15 @@ def main():
         },
     }
 
-    current_script_dir = os.path.dirname(os.path.abspath(__file__))
-
     while True:
         print("\nAvailable Scripts:")
         for key, script_info in scripts.items():
             print(f"{key}: {script_info['name']} - {script_info['description']}")
         
-        user_choice = input("Enter the number of the script you want to run (or 'q' to quit): ").strip()
+        try:
+            user_choice = input("Enter the number of the script you want to run (or 'q' to quit): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            break
         
         if user_choice == 'q':
             break
@@ -49,7 +53,7 @@ def main():
             
             if os.path.exists(script_file_path):
                 try:
-                    subprocess.run(["python", script_file_path])
+                    subprocess.run([sys.executable, script_file_path], cwd=current_script_dir)
                 except Exception as e:
                     print(f"An error occurred while running the script: {e}")
             else:

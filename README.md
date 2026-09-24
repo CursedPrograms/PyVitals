@@ -22,58 +22,121 @@
 
 # PySysMonitor
 
-## How to Run:
+A lightweight, cross-platform system monitor written in Python. It shows live CPU, RAM, temperature and NVIDIA GPU stats in either the terminal or a small Tkinter window.
 
-python3 -m venv venv
-source venv/bin/activate
+## Features
 
+- **CPU usage:** overall utilisation, refreshed every 2 seconds
+- **RAM usage:** percentage used and total installed memory
+- **Temperatures:** hardware sensor readings where the OS exposes them (Linux)
+- **NVIDIA GPU:** temperature, utilisation and memory used, via NVML (optional)
+- **Two front ends:** a console monitor (`vitals.py`) and a Tkinter GUI (`vitals-tkinter.py`)
+- **One-click launchers:** for Windows (`run.bat`, `run.ps1`) and Linux/macOS (`run.sh`)
+
+<br>
+
+## Quick Start
+
+The launcher scripts create a virtual environment (`psdenv`), install the requirements and open the menu. Run the one for your system from the project folder.
+
+**Windows**
+
+```bat
+run.bat
+```
+
+or in PowerShell:
+
+```powershell
+.\run.ps1
+```
+
+If PowerShell blocks the script, run it with `powershell -ExecutionPolicy Bypass -File .\run.ps1`.
+
+**Linux / macOS**
+
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+On Debian/Ubuntu, first install the venv and Tkinter packages:
+
+```bash
 sudo apt update
-sudo apt install python3-tk
+sudo apt install python3-venv python3-tk
+```
+
+The menu then lets you pick:
+
+| Option | Runs | Description |
+| ------ | ---- | ----------- |
+| `1` | `vitals.py` | Console system monitor (Ctrl+C to stop) |
+| `2` | `vitals-tkinter.py` | Tkinter GUI system monitor |
+| `00` | `scripts/install_dependencies.py` | Install the requirements |
+| `q` | | Quit |
+
+<br>
+
+## Manual Setup
+
+```bash
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+# Linux / macOS
+source venv/bin/activate
 
 pip install --upgrade pip
 pip install -r requirements.txt
-
-### Install Requirements
-
-Using Python directly:
-
-```bash
-pip install -r requirements.txt
-```
-Or run: 
-- `install_requirements.bat`
-
-  
-  <br>
-
-### Run main.py
-
-Using Python directly:
-
-```bash
-python main.py
 ```
 
-Using provided scripts:
-
-Windows:
-- `.\run.bat`
-or
-- `.\run.ps1`
-
-Unix-like systems (Linux/macOS):
-- `.\run.sh`
-
-  <br>
-
-## Requirements:
+Then start the menu, or run a monitor directly:
 
 ```bash
-Package Version
-------- -------
-pip     26.0.1
-psutil  7.2.2
-nvidia-ml-py3
+python main.py             # menu
+python vitals.py           # console monitor
+python vitals-tkinter.py   # GUI monitor
+```
+
+> **Windows:** if `python` opens the Microsoft Store, install Python from [python.org](https://www.python.org/downloads/) with "Add python.exe to PATH" ticked, or use the `py` launcher instead (`py -m venv venv`).
+
+<br>
+
+## Requirements
+
+- Python 3.9+
+- [`psutil`](https://pypi.org/project/psutil/): CPU, RAM and sensor stats
+- [`nvidia-ml-py`](https://pypi.org/project/nvidia-ml-py/): NVIDIA GPU stats (optional; without it or an NVIDIA GPU, the GPU line shows "Not available")
+- `tkinter`: GUI only; ships with Python on Windows and macOS, and on Linux comes from `sudo apt install python3-tk`
+
+> **Note:** `psutil` only reads temperature sensors on Linux (and some BSDs). On Windows and macOS the temperature line shows "Unsupported".
+
+<br>
+
+## Project Structure
+
+```
+PySysMonitor/
+├── main.py                      # Script menu
+├── vitals.py                    # Console monitor
+├── vitals-tkinter.py            # Tkinter GUI monitor
+├── config.json                  # App config
+├── requirements.txt
+├── scripts/
+│   └── install_dependencies.py
+├── tests/
+│   └── test_vitals.py
+├── run.bat / run.ps1 / run.sh   # Launchers
+└── setup.bat / setup.ps1 / setup.sh
+```
+
+## Running Tests
+
+```bash
+pip install pytest
+pytest
 ```
 
 <br>

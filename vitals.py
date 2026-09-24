@@ -58,10 +58,11 @@ def monitor():
         print("=" * 40)
         time.sleep(2)
 
-try:
-    monitor()
-except KeyboardInterrupt:
-    if GPU_ENABLED:
-        nvmlShutdown()
-    print("\nMonitoring stopped.")
+if __name__ == "__main__":
+    try:
+        monitor()
+    except KeyboardInterrupt:
+        if GPU_ENABLED:
+            nvmlShutdown()
+        print("\nMonitoring stopped.")
 

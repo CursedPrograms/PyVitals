@@ -1,16 +1,18 @@
+import os
 import subprocess
+import sys
 
 def install_dependencies():
     try:
         # Read the requirements.txt file
-        with open('requirements.txt', 'r') as requirements_file:
+        with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'requirements.txt'), 'r') as requirements_file:
             requirements = requirements_file.readlines()
         
         # Install dependencies using pip
         for requirement in requirements:
             requirement = requirement.strip()
             if requirement:
-                subprocess.run(['pip', 'install', requirement])
+                subprocess.run([sys.executable, '-m', 'pip', 'install', requirement])
 
         print("Dependencies installed successfully.")
 

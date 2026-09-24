@@ -7,3 +7,7 @@
 *.txt linguist-generated=false
 *.txt linguist-documentation=false
 *.txt linguist-detectable=true
+
+*.sh text eol=lf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
