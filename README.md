@@ -20,7 +20,7 @@
   </div>
   <br>
 
-# PySysMonitor
+# PyVitals
 
 A lightweight, cross-platform system monitor written in Python. It shows live CPU, RAM, temperature and NVIDIA GPU stats in either the terminal or a small Tkinter window.
 
