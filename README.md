@@ -67,6 +67,8 @@ sudo apt update
 sudo apt install python3-venv python3-tk
 ```
 
+To set up the environment without launching, run `setup.bat`, `.\setup.ps1` or `./setup.sh`. `install_requirements.bat` does the same thing.
+
 The menu then lets you pick:
 
 | Option | Runs | Description |

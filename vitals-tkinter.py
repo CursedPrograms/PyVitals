@@ -59,8 +59,9 @@ def get_gpu_info():
 class SystemMonitorApp:
     def __init__(self, root):
         self.root = root
-        root.title("System Monitor")
-        root.geometry("400x300")
+        root.title("PySysMonitor")
+        root.geometry("420x300")
+        root.minsize(320, 200)
 
         self.text = tk.Text(root, font=("Courier", 10), bg="black", fg="lime", wrap=tk.WORD)
         self.text.pack(fill=tk.BOTH, expand=True)
@@ -72,13 +73,15 @@ class SystemMonitorApp:
         if not self.running:
             return
         output = []
-        output.append(f"🖥️ Platform: {platform.system()} {platform.machine()}")
+        output.append(f"Platform: {platform.system()} {platform.machine()}")
         output.append(get_cpu_info())
         output.append(get_ram_info())
         output.append(get_temp_info())
         output.append(get_gpu_info())
+        self.text.config(state=tk.NORMAL)
         self.text.delete(1.0, tk.END)
         self.text.insert(tk.END, "\n".join(output))
+        self.text.config(state=tk.DISABLED)
         self.root.after(2000, self.update_loop)
 
 

@@ -1,3 +1,3 @@
 @echo off
-pip install -r requirements.txt
-pause
+rem Installs the requirements into the project's virtual environment (psdenv)
+call "%~dp0setup.bat"

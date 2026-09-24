@@ -49,7 +49,7 @@ def get_gpu_info():
     return "GPU Info: Not available"
 
 def monitor():
-    print(f"System Monitor - Platform: {platform.system()}\n{'=' * 40}")
+    print(f"PySysMonitor - Platform: {platform.system()}\n{'=' * 40}")
     while True:
         print(get_cpu_info())
         print(get_ram_info())
